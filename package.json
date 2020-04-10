@@ -1,7 +1,7 @@
 {
   "name": "eventstore-lambda-pump",
   "description": "Reads events from streams and triggers Lambda functions. Automatically sets up persistent subscriptions.",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": "Craig Morris @morrislaptop",
   "bin": {
     "eventstore-lambda-pump": "./bin/run"
