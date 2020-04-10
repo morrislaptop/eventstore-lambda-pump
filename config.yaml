@@ -1,8 +1,1 @@
-streams:
-  quotes-v2:
-    type: persistent
-    function: process-quotes
-
-  quotes-v2:
-    type: volatile
-    function: send-welcome-email
+/Users/craigmorris/.config/eventstore-lambda-pump/config.yaml
