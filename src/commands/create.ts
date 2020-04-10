@@ -1,3 +1,5 @@
+require('reflect-metadata')
+
 import {Command, flags} from '@oclif/command'
 import { eventstore } from '../lib/eventstore'
 import { load, Stream } from '../lib/config'

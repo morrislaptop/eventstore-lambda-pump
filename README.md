@@ -3,47 +3,42 @@ eventstore-lambda-pump
 
 Reads events from streams and triggers Lambda functions. Automatically sets up persistent subscriptions.
 
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/eventstore-lambda-pump.svg)](https://npmjs.org/package/eventstore-lambda-pump)
-[![Downloads/week](https://img.shields.io/npm/dw/eventstore-lambda-pump.svg)](https://npmjs.org/package/eventstore-lambda-pump)
-[![License](https://img.shields.io/npm/l/eventstore-lambda-pump.svg)](https://github.com/morrislaptop/eventstore-lambda-pump/blob/master/package.json)
+# Configuration
 
-<!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
-# Usage
-<!-- usage -->
+See the `.env.example` file for the required environment variables to be set. The streams to listen to are configured in a YAML file
+located in `~/.config/eventstore-lambda-pump/config.yaml`
+
+Sample config:
+
+```yaml
+streams:
+  - stream: pump # name of the stream
+    type: persistent # type of connection you want - persistent or volatile
+    function: vapor-quote-api-production # name of the lambda function you want to execute
+    settings: # Optional settings to configure a persistent subscription (https://eventstore.com/docs/http-api/competing-consumers/index.html)
+      startFrom: 500
+```
+
+# Installation
+
 ```sh-session
-$ npm install -g eventstore-lambda-pump
-$ eventstore-lambda-pump COMMAND
-running command...
-$ eventstore-lambda-pump (-v|--version|version)
-eventstore-lambda-pump/0.1.0 darwin-x64 node-v13.12.0
-$ eventstore-lambda-pump --help [COMMAND]
-USAGE
-  $ eventstore-lambda-pump COMMAND
-...
-```
-<!-- usagestop -->
-# Commands
-<!-- commands -->
-* [`eventstore-lambda-pump help [COMMAND]`](#eventstore-lambda-pump-help-command)
-
-## `eventstore-lambda-pump help [COMMAND]`
-
-display help for eventstore-lambda-pump
-
-```
-USAGE
-  $ eventstore-lambda-pump help [COMMAND]
-
-ARGUMENTS
-  COMMAND  command to show help for
-
-OPTIONS
-  --all  see all commands in CLI
+$ git clone git@github.com:morrislaptop/eventstore-lambda-pump.git
+$ cd eventstore-lambda-pump
+$ yarn
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
-<!-- commandsstop -->
+> This will be as simple as `npx eventstore-lambda-pump pump in the future`
+
+# Usage
+
+## create
+
+    ./bin/run create
+
+This will delete and create the persistent subscriptions.
+
+## pump
+
+    ./bin/run pump
+
+This will connect to persistent and volatile subscriptions to streams and trigger Lambda functions accordingly.

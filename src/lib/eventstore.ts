@@ -15,4 +15,4 @@ export function createConnectionForUrl(url: string) {
   return createConnection(settings, 'tcp://' + parts.host)
 }
 
-export const eventstore = createConnectionForUrl(process.env.EVENTSTORE_TCP_URL || '')
+export const eventstore = createConnectionForUrl(process.env.EVENTSTORE_TCP_URL || 'tcp://admin:changeit@127.0.0.1:1113')

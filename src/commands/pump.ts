@@ -1,3 +1,5 @@
+require('reflect-metadata')
+
 import { Command } from '@oclif/command'
 import { eventstore } from '../lib/eventstore'
 import { Lambda } from 'aws-sdk'
