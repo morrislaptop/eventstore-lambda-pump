@@ -3,7 +3,7 @@ require('reflect-metadata')
 import {Command, flags} from '@oclif/command'
 import { eventstore } from '../lib/eventstore'
 import { load, Stream } from '../lib/config'
-import { PersistentSubscriptionSettings } from 'node-eventstore-client'
+import { PersistentSubscriptionSettings, SystemConsumerStrategies } from 'node-eventstore-client'
 
 export default class Create extends Command
 {
@@ -31,7 +31,21 @@ export default class Create extends Command
       // subscription doesn't exist.
     }
 
-    const settings = Object.assign(PersistentSubscriptionSettings.create(), stream.settings)
+    const settings = Object.assign(new PersistentSubscriptionSettings(
+      false, // resolveLinkTos: boolean,
+      0, // startFrom: Long | number,
+      false, // extraStatistics: boolean,
+      10000, // messageTimeout: number,
+      10, // maxRetryCount: number,
+      500, // liveBufferSize: number,
+      20, // readBatchSize: number,
+      500, // historyBufferSize: number,
+      1000, // checkPointAfter: number,
+      10, // minCheckPointCount: number,
+      500, // maxCheckPointCount: number,
+      10, // maxSubscriberCount: number,
+      SystemConsumerStrategies.RoundRobin // namedConsumerStrategy: string
+    ), stream.settings)
 
     await eventstore.createPersistentSubscription(stream.stream, stream.function, settings)
 
